@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Random;
 
@@ -69,7 +71,18 @@ public class LabController {
         return "personal-encouragement";
     }
     @GetMapping("/tip")
-    public String getTip() {
+    public String getTip(Model model) {
+        model.addAttribute("displayForm", true);
+        return "tip";
+    }
+    @PostMapping("/tip")
+    public String getTip(double total, int percent, Model model) {
+        model.addAttribute("total", total);
+        model.addAttribute("percent", percent);
+        BigDecimal tipAmount = BigDecimal.ZERO;
+        tipAmount = BigDecimal.valueOf(total * (percent * .01)).setScale(2,RoundingMode.HALF_UP);
+        model.addAttribute("tipAmount", tipAmount);
+        model.addAttribute("displayForm", false);
         return "tip";
     }
     @GetMapping("/color")

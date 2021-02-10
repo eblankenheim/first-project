@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <h1>Personalized Random Encouragement</h1>
-    <form method ="POST">
+    <form th:if="${#strings.isEmpty(name)}" method ="POST">
         <fieldset>
             <legend>What's your name?</legend>
             <div>
@@ -22,7 +22,7 @@
             </div>
         </fieldset>
     </form>
-    <blockquote th:text="|${name}, ${encouragement}|">Evan, You can do it! </blockquote>
+    <blockquote th:unless="${#strings.isEmpty(name)}" th:text="|${name}, ${encouragement}|">Evan, You can do it! </blockquote>
     <div>
         <a href="/" class="button">Home</a>
         <a href="/personal/encouragement" class="button">Reset</a>

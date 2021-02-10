@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,38 @@
 </head>
 <body>
 <div class="container">
-    <h1>Tip</h1>
-    <a href="/">Return to Home</a>
+    <h1>Tip Calculator</h1>
+    <form th:if="${displayForm}" method = "POST">
+        <fieldset>
+            <div>
+                <label for="check">Check Total</label>
+                <input type="number" id="check" name="total" step="0.1">
+            </div>
+            <div>
+                <label for="percent">Tip Percent</label>
+                <input type="number" id="percent" name="percent">
+            </div>
+            <div>
+                <button type="submit" class="button">Calculate</button>
+            </div>
+        </fieldset>
+    </form>
+    <div id="results" th:unless="${displayForm}">
+        <p>
+            <strong>Check Total:</strong> <span th:text="${total}">0.0</span>
+        </p>
+        <p>
+            <strong>Percent:</strong> <span th:text="${percent}">0.0</span>
+        </p>
+        <p>
+            <strong>Tip:</strong> <span th:text="${tipAmount}">0.0</span>
+        </p>
+    </div>
+    <div>
+        <a href="/" class="button">Home</a>
+        <a href="/tip" class="button">Reset</a>
+    </div>
 </div>
+
 </body>
 </html>
